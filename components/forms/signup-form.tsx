@@ -31,8 +31,10 @@ const SignUpForm: React.FC = () => {
 	}
 
 	return (
-		<div className="sign-up-form container mx-auto w-96 mt-12 border-2 border-gray-400">
-      <h2 className="px-12 mt-8 text-center text-2xl font-semibold text-blue-900">Sign Up</h2>
+		<div className='w-full md:w-96 mx-auto'>
+			<h2 className='px-12 text-center text-2xl font-semibold text-blue-900'>
+				Sign Up
+			</h2>
       <FormProvider {...methods}>
         <form action="" className="w-80 mx-auto pb-12 px-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-8">

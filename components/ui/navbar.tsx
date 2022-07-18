@@ -4,7 +4,8 @@ import { useAuth } from '../../context/authContext'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/solid'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon, UserIcon } from '@heroicons/react/outline'
+import { motion } from 'framer-motion'
 
 const Navbar = ({ children }: { children: React.ReactNode }) => {
 	const { user, logOut } = useAuth()
@@ -43,11 +44,17 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 		imageUrl:
 			'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 	}
-	const navigation = [
-		{ name: 'Dashboard', href: '#', current: true },
-		{ name: 'Team', href: '#', current: false },
-		{ name: 'Projects', href: '#', current: false },
-		{ name: 'Calendar', href: '#', current: false },
+	const products = [
+		{ name: 'Plans', href: '#' },
+		{ name: 'Business Cards', href: '#' },
+		{ name: 'Postcards', href: '#' },
+		{ name: 'Posters', href: '#' },
+		{ name: 'Flyers', href: '#' },
+		{ name: 'Banners', href: '#' },
+		{ name: 'Stationery', href: '#' },
+		{ name: 'Marketing Materials', href: '#' },
+		{ name: 'Signage & Tradeshows', href: '#' },
+		{ name: 'Booklets', href: '#' },
 	]
 	const userNavigation = [
 		{ name: 'Your Profile', href: '/dashboard', onClick: () => {} },
@@ -63,15 +70,34 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 			<Disclosure as='header' className='bg-white shadow'>
 				{({ open }) => (
 					<>
-						<div className='max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8'>
-							<div className='relative h-16 flex justify-between'>
+						<div className='max-w-7xl mx-auto px-2 sm:px-4 lg:px-8'>
+							<div className='relative h-24 flex justify-between '>
 								<div className='relative z-10 px-2 flex lg:px-0'>
 									<div className='flex-shrink-0 flex items-center'>
-										<img
-											className='block h-8 w-auto'
-											src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
-											alt='Workflow'
-										/>
+										<motion.button className='flex flex-row focus:outline-none outline-none z-10'>
+											<Link href='/'>
+												<picture>
+													<source
+														srcSet='https://res.cloudinary.com/the-color-mill/image/upload/v1616105305/Color%20Mill%20Design/color-mill-animated-logo_bxjcpm.webp'
+														type='image/webp'
+													/>
+													<source
+														srcSet='https://res.cloudinary.com/the-color-mill/image/upload/v1639014317/Color%20Mill%20Design/ColorMillLogoHeader-NoText_nvtcqj.png'
+														type='image/png'
+													/>
+													<img
+														className='h-16'
+														srcSet='https://res.cloudinary.com/the-color-mill/image/upload/v1639014317/Color%20Mill%20Design/ColorMillLogoHeader-NoText_nvtcqj.png'
+														alt='Color Mill logo'
+													/>
+												</picture>
+											</Link>
+											<Link href='/'>
+												<h1 className='font-semibold ml-4 my-auto text-2xl hidden md:block'>
+													COLOR MILL PRINTING
+												</h1>
+											</Link>
+										</motion.button>
 									</div>
 								</div>
 								<div className='relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0'>
@@ -136,11 +162,7 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 													<span className='sr-only'>
 														Open user menu
 													</span>
-													<img
-														className='h-8 w-8 rounded-full'
-														src={userData.imageUrl}
-														alt=''
-													/>
+													<UserIcon className='h-6 text-gray-400' />
 												</Menu.Button>
 											</div>
 											<Transition
@@ -210,19 +232,11 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 							<nav
 								className='hidden lg:py-2 lg:flex lg:space-x-8'
 								aria-label='Global'>
-								{navigation.map((item) => (
+								{products.map((item) => (
 									<a
 										key={item.name}
 										href={item.href}
-										className={classNames(
-											item.current
-												? 'bg-gray-100 text-gray-900'
-												: 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
-											'rounded-md py-2 px-3 inline-flex items-center text-sm font-medium'
-										)}
-										aria-current={
-											item.current ? 'page' : undefined
-										}>
+										className='text-gray-900 hover:underline py-2 px-3 inline-flex items-center text-sm font-medium'>
 										{item.name}
 									</a>
 								))}
@@ -234,20 +248,14 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 							className='lg:hidden'
 							aria-label='Global'>
 							<div className='pt-2 pb-3 px-2 space-y-1'>
-								{navigation.map((item) => (
+								{products.map((item) => (
 									<Disclosure.Button
 										key={item.name}
 										as='a'
 										href={item.href}
-										className={classNames(
-											item.current
-												? 'bg-gray-100 text-gray-900'
-												: 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
-											'block rounded-md py-2 px-3 text-base font-medium'
-										)}
-										aria-current={
-											item.current ? 'page' : undefined
-										}>
+										className='text-gray-900 hover:bg-gray-50 hover:text-gray-900 block rounded-md py-2 px-3 text-base font-medium'
+										
+										>
 										{item.name}
 									</Disclosure.Button>
 								))}
@@ -263,19 +271,14 @@ const Navbar = ({ children }: { children: React.ReactNode }) => {
 							) : (
 								<div className='border-t border-gray-200 pt-4 pb-3'>
 									<div className='px-4 flex items-center'>
-										<div className='flex-shrink-0'>
-											<img
-												className='h-10 w-10 rounded-full'
-												src={userData.imageUrl}
-												alt=''
-											/>
-										</div>
+										<UserIcon className='h-12 text-gray-400' />
+
 										<div className='ml-3'>
 											<div className='text-base font-medium text-gray-800'>
 												{userData.name}
 											</div>
 											<div className='text-sm font-medium text-gray-500'>
-												{userData.email}
+												{user.email}
 											</div>
 										</div>
 									</div>
